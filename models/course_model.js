@@ -9,8 +9,13 @@ const course = {
   },
   add: function(course, callback) {
     return db.query(
-      'insert into course (name,credits,isbn) (?,?)',
-      [course.name, course.credits, course.isbn],
+
+      'insert into course (name,credits) values(?,?)',
+      [course.name, course.credits,],
+
+      'insert into course (name,credits) (?,?)',
+      [course.name, course.credits],
+
       callback
     );
   },
@@ -19,7 +24,10 @@ const course = {
   },
   update: function(id, course, callback) {
     return db.query(
+
+      'update course set name=?,credits=? where id_course=?',
       'update course set name=?,credits=?, where id_course=?',
+
       [course.name, course.credits, id],
       callback
     );
